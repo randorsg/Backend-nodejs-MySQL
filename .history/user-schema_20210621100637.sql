@@ -1,0 +1,1 @@
+CREATE TABLE `meetinmadrid`.`usuario` ( `id` INT NOT NULL AUTO_INCREMENT , `nombre` VARCHAR(45) NOT NULL , `apellido` VARCHAR(45) NOT NULL , `email` VARCHAR(45) NOT NULL , `phone` VARCHAR(45) NOT NULL , `gustos` VARCHAR(45) NOT NULL , `comments` TEXT NOT NULL , `status` VARCHAR(10) NOT NULL , PRIMARY KEY (`id`)) ENGINE = InnoDB; 
