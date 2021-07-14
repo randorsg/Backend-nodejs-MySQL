@@ -5,8 +5,6 @@ const mysql = require('mysql');
 
 require('dotenv').config();
 
-//console.log (process.env.DB_PASSWORD) // desarrolloactivo_db console.log (process.env.DB_USER) // root
-
 const app = express();
 const port = process.env.PORT || 5000;
 
@@ -21,22 +19,22 @@ app.use(bodyParser.json());
 app.use(express.static('public'));
 
 // Templating Engine
-app.engine('hbs', exphbs({ extname: '.hbs' }));
+app.engine('hbs', exphbs( {extname: '.hbs' }));
 app.set('view engine', 'hbs');
 
 // Connection Pool
 const pool = mysql.createPool({
-    connectionLimit: 100,
-    host: process.env.DB_HOST,
-    user: process.env.DB_USER,
-    password: process.env.DB_PASS,
-    database: process.env.DB_NAME
+  connectionLimit : 100,
+  host            : process.env.DB_HOST,
+  user            : process.env.DB_USER,
+  password        : process.env.DB_PASS,
+  database        : process.env.DB_NAME
 });
-
+ 
 // Connect to DB
 pool.getConnection((err, connection) => {
-    if (err) throw err; // not connected!
-    console.log('Connected as ID ' + connection.threadId);
+  if(err) throw err; // not connected!
+  console.log('Connected as ID ' + connection.threadId);
 });
 
 const routes = require('./server/routes/user');
