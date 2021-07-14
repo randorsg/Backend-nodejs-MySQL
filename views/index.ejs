@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html  ng-app="mainApp">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Spotify App</title>
+
+
+  <!-- STYLES -->
+  <link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <link rel="stylesheet" type="text/css" href="css/style.css">
+
+
+
+  <!-- SCRIPTS -->
+  <script type='text/javascript' src='https://ajax.googleapis.com/ajax/libs/angularjs/1.5.7/angular.min.js'></script>
+  <!-- Custom Scripts -->
+  <script type="text/javascript" src="js/angular/mainApp.js"></script>
+
+
+
+</head>
+
+<body ng-controller="mainCtrl">
+
+  <!-- Use any element to open/show the overlay navigation menu -->
+  <!-- <div class="sidebar">
+  <span class="glyphicon glyphicon-search my-glyphicon" onclick="openNav()"></span>
+</div> -->
+<!-- The overlay -->
+<div id="myNav" class="overlay">
+  <div class="container-fluid">
+    <!-- Button to close the overlay navigation -->
+    <a href="javascript:void(0)" id="closebtn" class="closebtn" ng-click="clickClose()">&times;</a>
+    <!-- Overlay content -->
+    <form ng-submit="clickSearch()">
+      <div class="overlay-content inner-addon right-addon">
+        <div class="col-md-11">
+          <input id="search-box" class="search-box" type="text" placeholder="Search Tracks" ng-model="searchString" />
+        </div>
+        <div class="col-md-1">
+          <i ng-click="clickSearch()" class="glyphicon glyphicon-search my-glyphicon"></i>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>
+
+  <nav class="navbar navbar-default navbar-fixed-top">
+    <div class="container-fluid">
+      <div class="navbar-header">
+        <a class="logo" href="#"><span><img class="logo-img" src="images/logo.jpg"/></span><span class="navbar-title">Spotify Search App</span></a>
+      </div>
+    </div>
+  </nav>
+  <div class="row container-fluid">
+    <div class="col-md-1"></div>
+    <div class="col-md-11" id="search-results">
+
+      <table class="table table-hover">
+            <thead>
+              <tr class="success">
+                <th>
+                  <a ng-click="sortBy('name')">Track
+                    <span class="sort-glyph" ng-show=" sortType === 'name' "><i ng-class="sortGlyph"></i></span>
+                  </a>
+                </th>
+                <th>
+                  <a ng-click="sortBy('album.name')">Album
+                    <span class="sort-glyph" ng-show=" sortType === 'album.name' "><i ng-class="sortGlyph"></i></span>
+                  </a>
+                </th>
+                <th>
+                  <a ng-click="sortBy('artist[0].name')">Artist(s)
+                    <span class="sort-glyph" ng-show=" sortType === 'artist[0].name' "><i ng-class="sortGlyph"></i></span>
+                  </a>
+                </th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr ng-repeat="track in tracks | orderBy:sortType:reverse">
+                <td>
+                  {{track.name}}
+                </td>
+                <td>
+                  {{track.album.name}}
+                </td>
+                <td>
+                  <span ng-repeat="artist in track.artists">{{artist.name}}&nbsp;</span>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+    </div>
+  </div>
+
+
+
+
+
+</body>
+<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+<!-- Latest compiled and minified JavaScript -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+</html>

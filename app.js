@@ -1,45 +1,22 @@
-const express = require('express');
-const exphbs = require('express-handlebars');
-const bodyParser = require('body-parser');
-const mysql = require('mysql');
+"use strict";
 
-require('dotenv').config();
+var express = require('express');
+var expApp = express();
+var http = require('http').Server(expApp);
+var path = require('path');
+var bodyParser = require('body-parser');
 
-//console.log (process.env.DB_PASSWORD) // desarrolloactivo_db console.log (process.env.DB_USER) // root
+// all environments
+expApp.set('port', process.env.PORT || 8000);
+expApp.set('views', __dirname + '/views');
+expApp.set('view engine', 'ejs');
+expApp.use(bodyParser.urlencoded({ extended: true }));
+expApp.use(bodyParser.json());
+expApp.use(express.static(path.join(__dirname, 'public')));
 
-const app = express();
-const port = process.env.PORT || 5000;
+//----------------ROUTES--------------------------//
+require("./routes/route.js")(expApp);
 
-// Parsing middleware
-// Parse application/x-www-form-urlencoded
-app.use(bodyParser.urlencoded({ extended: false }));
-
-// Parse application/json
-app.use(bodyParser.json());
-
-// Static Files
-app.use(express.static('public'));
-
-// Templating Engine
-app.engine('hbs', exphbs({ extname: '.hbs' }));
-app.set('view engine', 'hbs');
-
-// Connection Pool
-const pool = mysql.createPool({
-    connectionLimit: 100,
-    host: process.env.DB_HOST,
-    user: process.env.DB_USER,
-    password: process.env.DB_PASS,
-    database: process.env.DB_NAME
+http.listen(expApp.get('port'), function(){
+	console.log('Spotify App Server listening on port ' + expApp.get('port'));
 });
-
-// Connect to DB
-pool.getConnection((err, connection) => {
-    if (err) throw err; // not connected!
-    console.log('Connected as ID ' + connection.threadId);
-});
-
-const routes = require('./server/routes/user');
-app.use('/', routes);
-
-app.listen(port, () => console.log(`Listening on port ${port}`));
