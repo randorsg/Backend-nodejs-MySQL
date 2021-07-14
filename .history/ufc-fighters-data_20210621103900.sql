@@ -1,1 +1,0 @@
-INSERT INTO `usuario` (`id`, `nombre`, `apellido`, `email`, `phone`, `gustos`, `comments`, `status`) VALUES (NULL, 'elisabeth', 'peña', 'elisabeth@gmail.com', '7885548554', 'bailar', 'bailar una musica lenta genera sueños desatrosos', '');
